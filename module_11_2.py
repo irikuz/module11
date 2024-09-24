@@ -2,12 +2,14 @@ class Intro:
     def __init__(self, obj):
         self.obj = obj
 
-    def introspection_info(obj):
+    def introspection_info(self):
         info = {
-            'type': type(obj),
-            'attributes': dir(obj),
-            'methods': [method for method in dir(type(obj)) if callable(getattr(type(obj), method))],
-            'module': obj.__module__
+            "type": type(self.obj),
+            "attributes": [attr for attr in dir(self.obj)
+                           if not callable(getattr(self.obj, attr))],
+            "methods": [attr for attr in dir(self.obj)
+                        if callable(getattr(self.obj, attr))],
+            "module": getattr(self.obj, '__module__', 'builtins'),
         }
         return info
 
